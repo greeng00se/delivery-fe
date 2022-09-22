@@ -8,5 +8,5 @@ export default defineNuxtPlugin(nuxtApp => {
     directives,
   })
 
-  nuxtApp.vueApp.use(vuetify)
+  nuxtApp.vueApp.use(vuetify);
 })

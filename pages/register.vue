@@ -8,25 +8,25 @@
           </v-card-item>
           <v-card-item>
             <TextFieldWithValidation
-              v-model="username"
-              name="username"
+              v-model="owner.name"
+              name="name"
               label="아이디"
               type="string"
             />
             <TextFieldWithValidation
-              v-model="email"
+              v-model="owner.email"
               name="email"
               label="이메일"
               type="string"
             />
             <TextFieldWithValidation
-              v-model="password"
+              v-model="owner.password"
               name="password"
               label="비밀번호"
               type="password"
             />
             <TextFieldWithValidation
-              v-model="passwordConfirm"
+              v-model="owner.passwordConfirm"
               name="passwordConfirm"
               label="비밀번호 확인"
               type="password"
@@ -49,15 +49,13 @@
 import { Form, useForm } from "vee-validate";
 import * as yup from "yup";
 import { useAuthStore } from "@/stores/auth";
+import { OwnerRegister } from "~~/models/auth/OwnerRegister";
 
-const username = ref("");
-const email = ref("");
-const password = ref("");
-const passwordConfirm = ref("");
-const registerAlert = ref(false);
+let owner: OwnerRegister = {} as OwnerRegister;
+let registerAlert = false;
 
 const registerSchema = yup.object({
-  username: yup.string().min(4).required().label("아이디"),
+  name: yup.string().min(4).required().label("아이디"),
   email: yup.string().email().label("이메일"),
   password: yup.string().min(8).required().label("비밀번호"),
   passwordConfirm: yup
@@ -73,10 +71,10 @@ useForm({
 const register = async () => {
   const authStore = useAuthStore();
 
-  const { error } = await authStore.register(username.value, email.value, password.value);
+  const { error } = await authStore.register(owner);
 
   if (error.value) {
-    registerAlert.value = true;
+    registerAlert = true;
     return;
   }
 

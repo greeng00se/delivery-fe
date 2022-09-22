@@ -8,13 +8,13 @@
           </v-card-item>
           <v-card-item>
             <TextFieldWithValidation
-              v-model="username"
-              name="username"
+              v-model="owner.name"
+              name="name"
               label="아이디"
               type="string"
             />
             <TextFieldWithValidation
-              v-model="password"
+              v-model="owner.password"
               name="password"
               label="비밀번호"
               type="password"
@@ -40,13 +40,13 @@
 import { useAuthStore } from "@/stores/auth";
 import { Form, useForm } from "vee-validate";
 import * as yup from "yup";
+import { OwnerLogin } from "~~/models/auth/OwnerLogin";
 
-const username = ref("");
-const password = ref("");
-const loginAlert = ref(false);
+let owner: OwnerLogin = {} as OwnerLogin;
+let loginAlert = false;
 
 const loginSchema = yup.object({
-  username: yup.string().min(4).required().label("아이디"),
+  name: yup.string().min(4).required().label("아이디"),
   password: yup.string().min(8).required().label("비밀번호"),
 });
 
@@ -57,10 +57,10 @@ useForm({
 const login = async () => {
   const authStore = useAuthStore();
 
-  const { error } = await authStore.login(username.value, password.value);
+  const { error } = await authStore.login(owner);
 
   if (error.value) {
-    loginAlert.value = true;
+    loginAlert = true;
     return;
   }
 

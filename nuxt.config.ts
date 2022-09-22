@@ -20,4 +20,10 @@ export default defineNuxtConfig({
       "process.env.DEBUG": false,
     },
   },
+
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'https://api.myeats.me/api',
+    },
+  },
 });

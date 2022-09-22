@@ -1,57 +1,39 @@
 import { defineStore } from "pinia";
+import { useMyFetch } from "~~/composable/useMyFetch";
+import { OwnerLogin } from "~~/models/auth/OwnerLogin";
+import { OwnerRegister } from "~~/models/auth/OwnerRegister";
 
-export const useAuthStore = defineStore(
-  "auth",
-  () => {
-    const token = ref("");
-
-    const isLogined = computed(() => (token.value == "" ? false : true));
-
-    const register = async (username, email, password) => {
-      if (!username || !email || !password) return;
-
-      const body = {
-        name: username,
-        email: email,
-        password: password,
-      };
-
-      return await useFetch("https://api.myeats.me/api/owner/register", {
-        method: "POST",
-        body: body,
-      });
+export const useAuthStore = defineStore("auth", {
+  state: () => {
+    return {
+      token: "",
     };
-
-    const login = async (username, password) => {
-      if (!username || !password) return;
-
-      const body = {
-        name: username,
-        password: password,
-      };
-
-      const { data, error } = await useFetch(
-        "https://api.myeats.me/api/owner/login",
-        {
-          method: "POST",
-          body: body,
-        }
-      );
+  },
+  getters: {
+    isLogined: (state) => !!state.token,
+  },
+  actions: {
+    async login(owner: OwnerLogin) {
+      const { data, error } = await useMyFetch("/owner/login", {
+        method: "POST",
+        body: owner,
+      });
 
       if (!error.value) {
-        token.value = data.value["token"];
+        this.token = data.value["token"];
       }
 
       return { data, error };
-    };
-
-    const logout = () => {
-      token.value = "";
-    };
-
-    return { token, register, login, logout, isLogined };
+    },
+    async register(owner: OwnerRegister) {
+      return await useMyFetch("/owner/register", {
+        method: "POST",
+        body: owner,
+      });
+    },
+    async logout() {
+      this.token = "";
+    },
   },
-  {
-    persist: true,
-  }
-);
+  persist: true,
+});

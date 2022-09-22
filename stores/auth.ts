@@ -3,17 +3,20 @@ import { defineStore } from "pinia";
 export const useAuthStore = defineStore(
   "auth",
   () => {
-    const accessToken = ref("");
+    const token = ref("");
 
-    const register = async (username, password) => {
-      if (!username || !password) return;
+    const isLogined = computed(() => (token.value == "" ? false : true));
+
+    const register = async (username, email, password) => {
+      if (!username || !email || !password) return;
 
       const body = {
-        username: username,
+        name: username,
+        email: email,
         password: password,
       };
 
-      return await useFetch("https://api.myeats.dev/api/owner/register", {
+      return await useFetch("https://api.myeats.me/api/owner/register", {
         method: "POST",
         body: body,
       });
@@ -23,12 +26,12 @@ export const useAuthStore = defineStore(
       if (!username || !password) return;
 
       const body = {
-        username: username,
+        name: username,
         password: password,
       };
 
       const { data, error } = await useFetch(
-        "https://api.myeats.dev/api/owner/login",
+        "https://api.myeats.me/api/owner/login",
         {
           method: "POST",
           body: body,
@@ -36,17 +39,17 @@ export const useAuthStore = defineStore(
       );
 
       if (!error.value) {
-        accessToken.value = data.value["accessToken"];
+        token.value = data.value["token"];
       }
 
       return { data, error };
     };
 
     const logout = () => {
-      accessToken.value = "";
+      token.value = "";
     };
 
-    return { accessToken, register, login, logout };
+    return { token, register, login, logout, isLogined };
   },
   {
     persist: true,

@@ -4,7 +4,7 @@
       <Form as="v-form" @submit="register" :validation-schema="registerSchema">
         <v-card variant="outlined" max-width="420px">
           <v-card-item>
-            <v-card-title> 밥 먹을 사람? </v-card-title>
+            <v-card-title> 사장님 회원가입 </v-card-title>
           </v-card-item>
           <v-card-item>
             <TextFieldWithValidation

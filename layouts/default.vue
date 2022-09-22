@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-app-bar class="animate__animated animate__fadeIn" flat>
-      <v-btn variant="text" to="/">MyEats</v-btn>
+      <v-btn variant="text" to="/">MyEats 사장님</v-btn>
       <v-spacer></v-spacer>
       <v-btn @click="toggleTheme" :icon="themeIcon"></v-btn>
       <v-btn variant="text" icon="mdi-account-outline">

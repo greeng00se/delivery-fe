@@ -4,6 +4,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   setLocale({
     string: {
       min: "최소 ${min}자리 여야 합니다.",
+      email: "이메일 형식이 올바르지 않습니다."
     },
     number: {
       min: "${min} 이상의 값이어야 합니다.",

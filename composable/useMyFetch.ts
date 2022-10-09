@@ -18,6 +18,7 @@ export function useMyFetch<T>(
 
   return useFetch<T>(request, {
     baseURL: config.public.baseURL,
+    initialCache: false,
     ...opts,
   })
 }

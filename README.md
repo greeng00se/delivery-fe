@@ -1,42 +1,36 @@
-# Nuxt 3 Minimal Starter
+## 개요
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+- [우아한 객체지향](https://www.youtube.com/watch?v=dJ5C4qRqAgA) 유튜브와 오브젝트를 보고 주문을 위한 최소 기능 제품을 만들어보고 싶어 시작한 프로젝트입니다.
 
-## Setup
+## 사용 기술
 
-Make sure to install the dependencies:
+### [BE](https://github.com/greeng00se/delivery-be)
 
-```bash
-# yarn
-yarn install
+- Spring Boot, Spring Security, Spring Data JPA, QueryDsl(예정)
+- JUnit5, Spock
 
-# npm
-npm install
+### Infra
 
-# pnpm
-pnpm install --shamefully-hoist
-```
+- AWS EC2, S3, RDS, Beanstalk, ElastiCache(예정)
+- Jenkins
+- Sonar Cloud
+- Cloudflare Pages(FE)
 
-## Development Server
+### [FE](https://github.com/greeng00se/delivery-owner-fe)
 
-Start the development server on http://localhost:3000
+- Nuxt3, pinia
+- Vuetify3
 
-```bash
-npm run dev
-```
+## 구성도
 
-## Production
+![diagram](https://user-images.githubusercontent.com/58586537/191187654-b279daa9-3b56-45ae-9a76-0dc7bd9f6f40.png)
 
-Build the application for production:
+- 개인 프로젝트고 지속적인 통합을 위해 브랜치 전략은 Github flow를 사용하였습니다.
+- jenkins를 사용하여 main 브랜치에 코드가 통합된다면 자동으로 빌드, 테스트, 배포까지 되도록 설정하였습니다.
+- 추가 배치를 사용한 롤링 방식을 사용하여 무중단 배포를 할 수 있도록 설정하였습니다.
 
-```bash
-npm run build
-```
+## 현재까지의 DB Diagram
 
-Locally preview production build:
+![image](https://user-images.githubusercontent.com/58586537/194761835-f98e6918-c52d-4e97-941d-bee898ba8d96.png)
 
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+- [dbdocs.io](https://dbdocs.io/thegreengoose7/delivery?view=relationships)

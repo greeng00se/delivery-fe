@@ -52,7 +52,7 @@ import { useAuthStore } from "@/stores/auth";
 import { OwnerRegister } from "~~/models/auth/OwnerRegister";
 
 let owner: OwnerRegister = {} as OwnerRegister;
-let registerAlert = false;
+let registerAlert = ref(false);
 
 const registerSchema = yup.object({
   name: yup.string().min(4).required().label("아이디"),
@@ -74,7 +74,7 @@ const register = async () => {
   const { error } = await authStore.register(owner);
 
   if (error.value) {
-    registerAlert = true;
+    registerAlert.value = true;
     return;
   }
 

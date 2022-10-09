@@ -43,7 +43,7 @@ import * as yup from "yup";
 import { OwnerLogin } from "~~/models/auth/OwnerLogin";
 
 let owner: OwnerLogin = {} as OwnerLogin;
-let loginAlert = false;
+let loginAlert = ref(false);
 
 const loginSchema = yup.object({
   name: yup.string().min(4).required().label("아이디"),
@@ -60,7 +60,7 @@ const login = async () => {
   const { error } = await authStore.login(owner);
 
   if (error.value) {
-    loginAlert = true;
+    loginAlert.value = true;
     return;
   }
 
